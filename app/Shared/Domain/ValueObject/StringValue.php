@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Shared\Domain\ValueObject;
+
+use App\Shared\Exception\ExceptionUtil;
+use App\Shared\Exception\ValueObject\StringToLongException;
+
+class StringValue
+{
+    /**
+     * @throws \Throwable
+     */
+    public function __construct(private ?string $value, private readonly ?int $limit = 1000)
+    {
+        ExceptionUtil::throw_if(is_string($this->value) && is_int($limit) && strlen($this->value) > $limit, new StringToLongException(limit: $limit));
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    public function setValue(?string $value): void
+    {
+        $this->value = $value;
+    }
+
+    public function getLimit(): ?int
+    {
+        return $this->limit;
+    }
+}

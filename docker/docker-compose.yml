@@ -12,14 +12,6 @@ services:
       - "5432:5432"
     volumes:
       - ./docker/postgres_data:/var/lib/postgresql/data/pgdata
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 512M
-        reservations:
-          cpus: '0.25'
-          memory: 256M
     command: >
         postgres -c max_connections=1000
                  -c shared_buffers=256MB
@@ -37,13 +29,13 @@ services:
     tty: true
     stdin_open: true
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    restart: always
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-    ports:
-      - "5672:5672" # rabbitmq broker port
-      - "15672:15672" # rabbitmq Management UI port
+#  rabbitmq:
+#    image: rabbitmq:3-management
+#    restart: always
+#    environment:
+#      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+#      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+#    ports:
+#      - "5672:5672" # rabbitmq broker port
+#      - "15672:15672" # rabbitmq Management UI port
 
